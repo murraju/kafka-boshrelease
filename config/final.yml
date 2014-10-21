@@ -1,4 +1,4 @@
-final_name: zookeeper-boshrelease
+final_name: kafka-boshrelease
 min_cli_version: 1.5.0.pre.1114
 blobstore:
   provider: s3
