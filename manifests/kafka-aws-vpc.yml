@@ -1,9 +1,11 @@
 <% num_zookeepers = 3 %>
+<% num_kafka_brokers = 3 %>
 <% vpc_subnet_id = "CHANGE_ME" %>
-<% deployment_name = "zookeeper-aws-vpc" %>
+<% deployment_name = "kafka-aws-vpc" %>
+<% zookeeper_deployment_name = "zookeeper-aws-vpc" %>
 <% os = "ubuntu-trusty-go_agent" %>
 <% tld = "microbosh" %>
-<% release_name = "zookeeper-boshrelease" %>
+<% release_name = "kafka-boshrelease" %>
 <% director_uuid = "CHANGE_ME" %>
 ---
 
@@ -17,14 +19,14 @@ name:  <%= deployment_name %>
 director_uuid: <%= director_uuid %>
 
 jobs:
-- name: zookeeper
+- name: kafka
   networks:
   - name: default
     default: [dns, gateway]
     static_ips: null
-  resource_pool: zookeeper
-  template: zookeeper
-  instances: <%= num_zookeepers %>
+  resource_pool: kafka
+  template: kafka
+  instances: <%= num_kafka_brokers %>
 
 meta:
   environment: <%= deployment_name %>
@@ -35,15 +37,15 @@ meta:
 networks:
 - name: default
   subnets:
-  - range: 10.11.2.0/24
+  - range: 10.11.3.0/24
     name: default_unused
     reserved:
-    - 10.11.2.2 - 10.11.2.15
+    - 10.11.3.2 - 10.11.3.15
     static:
-    - 10.11.2.100 - 10.11.2.125
-    gateway: 10.11.2.1
+    - 10.11.3.100 - 10.11.3.125
+    gateway: 10.11.3.1
     dns:
-    - 10.11.2.9
+    - 10.11.3.11
     cloud_properties:
       security_groups:
       - bigdata
@@ -56,9 +58,9 @@ releases:
   version: latest
 
 resource_pools:
-  - name: zookeeper
+  - name: kafka
     network: default
-    size: <%= num_zookeepers %>
+    size: <%= num_kafka_brokers %>
     stemcell:
       name: bosh-aws-xen-<%= os %>
       version: latest
@@ -69,7 +71,7 @@ properties:
   zookeeper:
     servers:
       <% num_zookeepers.times do |i| %>
-      <%= "- #{i}.zookeeper.default.#{deployment_name}.#{tld}\n" %>
+      <%= "- #{i}.zookeeper.default.#{zookeeper_deployment_name}.#{tld}\n" %>
       <% end %>
 
 update:
