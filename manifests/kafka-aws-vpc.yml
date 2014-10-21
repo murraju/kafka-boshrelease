@@ -73,6 +73,11 @@ properties:
       <% num_zookeepers.times do |i| %>
       <%= "- #{i}.zookeeper.default.#{zookeeper_deployment_name}.#{tld}\n" %>
       <% end %>
+  kafka:
+    brokers:
+      <% num_kafka_brokers.times do |i| %>
+      <%= "- #{i}.kafka.default.#{deployment_name}.#{tld}\n" %>
+      <% end %>
 
 update:
   canaries: 1
