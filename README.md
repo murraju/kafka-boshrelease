@@ -1,9 +1,13 @@
-# Bosh release for Apache Zookeeper
+# Bosh release for Apache Kafka
 
-This is a Bosh release for Apache Zookeeper. This bosh release builds on the [Insightfactory Bosh release][1] in order to provide a standalone release for Apache Zookeeper.
+This is a Bosh release for Apache Kafka. This bosh release builds on the [Insightfactory Bosh release][1] in order to provide a standalone release for Apache Kafka.
 
 
 ## Supported Version
+
+Apache Kafka 0.8.1.1
+
+## Dependencies
 
 Apache Zookeeper 3.4.6
 
@@ -13,8 +17,8 @@ Take a look at the manifests directory for sample deployment manifests. Edit req
 
 To build:
 
-1. Run `git clone https://github.com/murraju/zookeeper-boshrelease`
-2. `cd zookeeper-boshrelease`
+1. Run `git clone https://github.com/murraju/kafka-boshrelease`
+2. `cd kafka-boshrelease`
 3. Run `bosh create release`
 4. Run `bosh upload release`
 5. Run `bosh deployment sample_manifest.yml`
@@ -45,8 +49,6 @@ git push origin master --tags
 ```
 
 
-## TODO
-*JDK 8 Testing
 
 ## Disclaimer
 
