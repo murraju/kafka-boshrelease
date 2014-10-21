@@ -1,0 +1,79 @@
+<% num_zookeepers = 3 %>
+<% vpc_subnet_id = "CHANGE_ME" %>
+<% deployment_name = "zookeeper-aws-vpc" %>
+<% os = "ubuntu-trusty-go_agent" %>
+<% tld = "microbosh" %>
+<% release_name = "zookeeper-boshrelease" %>
+<% director_uuid = "CHANGE_ME" %>
+---
+
+compilation:
+  cloud_properties:
+    instance_type: m1.xlarge
+  network: default
+  reuse_compilation_vms: true
+  workers: 6
+name:  <%= deployment_name %>
+director_uuid: <%= director_uuid %>
+
+jobs:
+- name: zookeeper
+  networks:
+  - name: default
+    default: [dns, gateway]
+    static_ips: null
+  resource_pool: zookeeper
+  template: zookeeper
+  instances: <%= num_zookeepers %>
+
+meta:
+  environment: <%= deployment_name %>
+  stemcell:
+    name: bosh-aws-xen-<%= os %>
+    version: latest
+
+networks:
+- name: default
+  subnets:
+  - range: 10.11.2.0/24
+    name: default_unused
+    reserved:
+    - 10.11.2.2 - 10.11.2.15
+    static:
+    - 10.11.2.100 - 10.11.2.125
+    gateway: 10.11.2.1
+    dns:
+    - 10.11.2.9
+    cloud_properties:
+      security_groups:
+      - bigdata
+      subnet: <%= vpc_subnet_id %>
+      type: dynamic
+
+
+releases:
+- name: <%= release_name %>
+  version: latest
+
+resource_pools:
+  - name: zookeeper
+    network: default
+    size: <%= num_zookeepers %>
+    stemcell:
+      name: bosh-aws-xen-<%= os %>
+      version: latest
+    cloud_properties:
+      instance_type: m1.small
+
+properties:
+  zookeeper:
+    servers:
+      <% num_zookeepers.times do |i| %>
+      <%= "- #{i}.zookeeper.default.#{deployment_name}.#{tld}\n" %>
+      <% end %>
+
+update:
+  canaries: 1
+  canary_watch_time: 1000-30000
+  max_in_flight: 50
+  update_watch_time: 1000-30000
