@@ -4,8 +4,6 @@ name: kafka
 packages:
   - bosh-helpers
   - java
-  - scala
-  - zookeeper
   - kafka
 
 templates:
