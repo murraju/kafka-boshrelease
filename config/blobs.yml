@@ -1,1 +1,9 @@
---- {}
+---
+kafka/kafka_2.10-0.8.1.1.tgz:
+  object_id: 23545000-d9fe-479d-a0f7-017818803750
+  sha: 7288a43bb0732789ff0d76d820fc7f40553854fe
+  size: 13790731
+java/jdk-7u67-linux-x64.tar.gz:
+  object_id: 40091d15-40cf-4587-aa74-e8f8a5a9175a
+  sha: c1428d338ac60a1b61160f74a45abd74f83e8703
+  size: 142376665
