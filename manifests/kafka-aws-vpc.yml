@@ -11,7 +11,7 @@
 
 compilation:
   cloud_properties:
-    instance_type: m1.xlarge
+    instance_type: m3.xlarge
   network: default
   reuse_compilation_vms: true
   workers: 6
@@ -31,24 +31,24 @@ jobs:
 meta:
   environment: <%= deployment_name %>
   stemcell:
-    name: bosh-aws-xen-<%= os %>
+    name: bosh-aws-xen-hvm-<%= os %>
     version: latest
 
 networks:
 - name: default
   subnets:
-  - range: 10.11.3.0/24
+  - range: 10.12.2.0/24
     name: default_unused
     reserved:
-    - 10.11.3.2 - 10.11.3.15
+    - 10.12.2.2 - 10.12.2.20
     static:
-    - 10.11.3.100 - 10.11.3.125
-    gateway: 10.11.3.1
+    - 10.12.2.126 - 10.12.2.150
+    gateway: 10.12.2.1
     dns:
-    - 10.11.3.11
+    - 10.12.2.9
     cloud_properties:
       security_groups:
-      - bigdata
+      - BigData-Students
       subnet: <%= vpc_subnet_id %>
       type: dynamic
 
@@ -62,10 +62,13 @@ resource_pools:
     network: default
     size: <%= num_kafka_brokers %>
     stemcell:
-      name: bosh-aws-xen-<%= os %>
+      name: bosh-aws-xen-hvm-<%= os %>
       version: latest
     cloud_properties:
-      instance_type: m1.small
+      instance_type: t2.small
+      ephemeral_disk:
+        size: 10_240
+        type: gp2
 
 properties:
   zookeeper:
