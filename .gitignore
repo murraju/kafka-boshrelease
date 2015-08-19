@@ -16,6 +16,6 @@ blobs/*
 #*
 Gemfile.lock
 local*yml
-tmp
+tmp/*
 releases/**/*.tgz
 blobs
