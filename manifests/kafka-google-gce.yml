@@ -1,0 +1,84 @@
+<% num_zookeepers = 3 %>
+<% num_kafka_brokers = 3 %>
+<% deployment_name = "kafka-google-gce" %>
+<% zookeeper_deployment_name = "zookeeper-google-gce" %>
+<% tld = "microbosh" %>
+<% release_name = "kafka-boshrelease" %>
+<% director_uuid = "CHANGE_ME" %>
+---
+compilation:
+  cloud_properties:
+     machine_type: n1-highcpu-2
+  network: private
+  reuse_compilation_vms: true
+  workers: 6
+name:  <%= deployment_name %>
+director_uuid: <%= director_uuid %>
+
+jobs:
+  - name: kafka
+    instances: <%= num_kafka_brokers %>
+  
+    templates:
+      - name: kafka
+        release: <%= release_name %>
+
+    resource_pool: vms
+
+    networks:
+      - name: private
+        type: dynamic
+        cloud_properties:
+          network_name: default
+          tags:
+            - zookeeper
+
+    properties:
+      zookeeper:
+        servers:
+          <% num_zookeepers.times do |i| %>
+            <%= "- #{i}.zookeeper.private.#{zookeeper_deployment_name}.#{tld}\n" %>
+          <% end %>
+      kafka:
+        brokers:
+          <% num_kafka_brokers.times do |i| %>
+            <%= "- #{i}.kafka.private.#{deployment_name}.#{tld}\n" %>
+          <% end %>
+
+
+meta:
+  environment: <%= deployment_name %>
+  stemcell:
+    name: bosh-google-kvm-ubuntu-trusty-go_agent
+    version: latest
+
+networks:
+  - name: private
+    type: dynamic
+    cloud_properties:
+      network_name: default
+      ephemeral_external_ip: false
+      ip_forwarding: false
+      tags:
+        - kafka
+
+releases:
+- name: <%= release_name %>
+  version: latest
+
+resource_pools:
+  - name: vms
+    network: private
+    stemcell:
+      name: bosh-google-kvm-ubuntu-trusty-go_agent
+      version: latest
+    cloud_properties:
+      machine_type: g1-small
+      root_disk_size_gb: 10
+      root_disk_type: pd-standard
+
+update:
+  canaries: 1
+  canary_watch_time: 1000-30000
+  max_in_flight: 50
+  update_watch_time: 1000-30000
