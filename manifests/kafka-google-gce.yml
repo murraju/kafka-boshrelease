@@ -9,7 +9,7 @@
 compilation:
   cloud_properties:
      machine_type: n1-highcpu-2
-  network: private
+  network: default
   reuse_compilation_vms: true
   workers: 6
 name:  <%= deployment_name %>
@@ -26,7 +26,7 @@ jobs:
     resource_pool: vms
 
     networks:
-      - name: private
+      - name: default
         type: dynamic
         cloud_properties:
           network_name: default
@@ -37,12 +37,12 @@ jobs:
       zookeeper:
         servers:
           <% num_zookeepers.times do |i| %>
-            <%= "- #{i}.zookeeper.private.#{zookeeper_deployment_name}.#{tld}\n" %>
+            <%= "- #{i}.zookeeper.default.#{zookeeper_deployment_name}.#{tld}\n" %>
           <% end %>
       kafka:
         brokers:
           <% num_kafka_brokers.times do |i| %>
-            <%= "- #{i}.kafka.private.#{deployment_name}.#{tld}\n" %>
+            <%= "- #{i}.kafka.default.#{deployment_name}.#{tld}\n" %>
           <% end %>
 
 
@@ -53,7 +53,7 @@ meta:
     version: latest
 
 networks:
-  - name: private
+  - name: default
     type: dynamic
     cloud_properties:
       network_name: default
@@ -68,7 +68,7 @@ releases:
 
 resource_pools:
   - name: vms
-    network: private
+    network: default
     stemcell:
       name: bosh-google-kvm-ubuntu-trusty-go_agent
       version: latest
