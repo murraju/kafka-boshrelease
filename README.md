@@ -3,9 +3,10 @@
 This is a Bosh release for Apache Kafka. This bosh release builds on the [Insightfactory Bosh release][1] in order to provide a standalone release for Apache Kafka.
 
 
-## Supported Version
+## Supported Versions
 
-Apache Kafka 0.8.1.1
+Apache Kafka 0.8.1.1 ( <= kafka-boshrelease-2.yml)
+Apache Kafka 0.9.0.0 (kafka-boshrelease-3.yml)
 
 ## Dependencies
 
