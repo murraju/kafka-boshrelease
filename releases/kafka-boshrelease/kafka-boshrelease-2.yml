@@ -1,0 +1,31 @@
+---
+packages:
+- name: kafka
+  version: a724b0bba27d8da786a10a6215bc3989d070ed34
+  fingerprint: a724b0bba27d8da786a10a6215bc3989d070ed34
+  sha1: 82be8a190d6395a87d3b477315e639ba083f17ac
+  dependencies:
+  - java
+- name: bosh-helpers
+  version: 55717f488eb12fd47c95fd524ab1cd6304c7ce7e
+  fingerprint: 55717f488eb12fd47c95fd524ab1cd6304c7ce7e
+  sha1: 588b88a5a59b10c229a3a8e78ca20f8528c78187
+  dependencies: []
+- name: java
+  version: 18f769c82d2f9a87037840059626b1ebd80daa7d
+  fingerprint: 18f769c82d2f9a87037840059626b1ebd80daa7d
+  sha1: de54250cc9cbc44c2ee734bd3bf03a08fa31b23b
+  dependencies: []
+jobs:
+- name: kafka
+  version: c27e8310a31cebf770ab86fd16ace3a0fc17b6e2
+  fingerprint: c27e8310a31cebf770ab86fd16ace3a0fc17b6e2
+  sha1: 3499fd051ba145fb6beb651988a8925e0a968f82
+license:
+  version: a3e6d245553160dad1d273d363550134abc94578
+  fingerprint: a3e6d245553160dad1d273d363550134abc94578
+  sha1: 8ef7c780f0b0fd073868fb1419e0e91f2dcaea99
+commit_hash: ac5fefcf
+uncommitted_changes: true
+name: kafka-boshrelease
+version: '2'
