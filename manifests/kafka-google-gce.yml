@@ -4,6 +4,7 @@
 <% zookeeper_deployment_name = "zookeeper-google-gce" %>
 <% tld = "microbosh" %>
 <% release_name = "kafka-boshrelease" %>
+<% zone = "CHANGE_ME" %>
 <% director_uuid = "CHANGE_ME" %>
 ---
 compilation:
@@ -73,6 +74,7 @@ resource_pools:
       name: bosh-google-kvm-ubuntu-trusty-go_agent
       version: latest
     cloud_properties:
+      zone: <%= zone %>
       machine_type: g1-small
       root_disk_size_gb: 10
       root_disk_type: pd-standard
