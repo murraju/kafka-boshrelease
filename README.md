@@ -6,6 +6,7 @@ This is a Bosh release for Apache Kafka. This bosh release builds on the [Insigh
 ## Supported Versions
 
 Apache Kafka 0.8.1.1 ( <= kafka-boshrelease-2.yml)
+Apache Kafka 0.8.2.2 ( <= kafka-boshrelease-4.yml) [recommended]
 Apache Kafka 0.9.0.0 (kafka-boshrelease-3.yml)
 
 ## Dependencies
