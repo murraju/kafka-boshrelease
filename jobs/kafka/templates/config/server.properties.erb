@@ -127,7 +127,8 @@ zookeeper.connect=<%= servers.join(',') %>
 ###################### Production Settings #############################
 
 # Replication configurations
-num.replica.fetchers=4
+# num.replica.fetchers=4
+num.replica.fetchers=2
 replica.fetch.max.bytes=1048576
 replica.fetch.wait.max.ms=500
 replica.high.watermark.checkpoint.interval.ms=5000
