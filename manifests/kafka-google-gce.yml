@@ -25,6 +25,7 @@ jobs:
         release: <%= release_name %>
 
     resource_pool: vms
+    persistent_disk_pool: kafka_logs
 
     networks:
       - name: default
@@ -41,6 +42,10 @@ jobs:
             <%= "- #{i}.zookeeper.default.#{zookeeper_deployment_name}.#{tld}\n" %>
           <% end %>
       kafka:
+        tmp:
+          dir: /var/vcap/data/zookeeper
+        log:
+          dirs: /var/vcap/store/log/kafka
         brokers:
           <% num_kafka_brokers.times do |i| %>
             <%= "- #{i}.kafka.default.#{deployment_name}.#{tld}\n" %>
@@ -76,8 +81,14 @@ resource_pools:
     cloud_properties:
       zone: <%= zone %>
       machine_type: g1-small
-      root_disk_size_gb: 10
+      root_disk_size_gb: 20
       root_disk_type: pd-standard
+
+disk_pools:
+  - name: kafka_logs
+    disk_size: 200_000
+    cloud_properties:
+      type: pd-standard
 
 update:
   canaries: 1
