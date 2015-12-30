@@ -42,8 +42,6 @@ jobs:
             <%= "- #{i}.zookeeper.default.#{zookeeper_deployment_name}.#{tld}\n" %>
           <% end %>
       kafka:
-        tmp:
-          dir: /var/vcap/data/zookeeper
         log:
           dirs: /var/vcap/store/log/kafka
         brokers:
