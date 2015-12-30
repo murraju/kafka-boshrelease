@@ -4,7 +4,8 @@
 # Apache Kafka Broker properties
 #
 JOB_NAME=kafka
-LOG_DIR=/var/vcap/sys/log/$JOB_NAME
+#LOG_DIR=/var/vcap/sys/log/$JOB_NAME
+LOG_DIR=<%= p('kafka.log.dirs') %>
 RUN_DIR=/var/vcap/sys/run/$JOB_NAME
 
 
